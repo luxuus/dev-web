@@ -1,0 +1,17 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+</head>
+<body>
+<ul>
+    {% for course in courses %}
+        {% if course=='Livre sur Symfony' %}
+        <li><strong>{{ course }}</strong></li>
+        {% else %}
+            <li>{{ course }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+</body>
+</html>

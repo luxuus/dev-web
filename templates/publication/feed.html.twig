@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+{% block page_title %}
+    <title>The Feed</title>
+{% endblock %}
+{% block page_content %}
+<main id="the-feed-main">
+    <div id="feed">
+
+        <!-- Génération de la balise <form>, possédant un id (HTML) "feedy-new" -->
+        {{ form_start(monFormulaire, {'attr': {'id': 'feedy-new'}}) }}
+        <fieldset>
+            <legend>Nouveau feedy</legend>
+            <div>
+                <!-- Le textarea généré, avec le placeholder "Qu'avez-vous en tête?" -->
+                {{ form_widget(monFormulaire.message, {'id': "message", 'attr': {"placeholder" : "Qu'avez-vous en tête?"}}) }}
+            </div>
+            <div>
+                <!-- Le bouton de validation, possédant l'id "feedy-new-submit" et le label "Feeder!" -->
+                {{ form_widget(monFormulaire.publier, {'id': 'feedy-new-submit', 'label': "Feeder!"}) }}
+            </div>
+        </fieldset>
+        <!-- Génération des balises restantes (token CSRF) -->
+        {{ form_rest(monFormulaire) }}
+        <!-- Génération de la balise fermante </form> -->
+        {{ form_end(monFormulaire) }}
+
+        <!-- Pour chaque publication, afficher (avec une boucle) le code HTML ci-dessous !-->
+        {% for publication in publications %}
+        <div class="feedy">
+            <div class="feedy-header">
+                <a href="">
+                    <img class="avatar"
+                         src= "{{ asset("img/utilisateurs/anonyme.jpg") }}"
+                         alt="avatar de l'utilisateur">
+                </a>
+                <div class="feedy-info">
+                    <span>Anonyme</span>
+                    <span> - </span>
+                    <span><!-- Date de la publication sous le format jour/mois/annee -->{{ publication.getDatePublication()|date('d-m-Y') }}</span>
+                    <p><!-- Message de la publication --> {{ publication.getMessage() }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Fin de la boucle -->
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

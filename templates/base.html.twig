@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    {% block page_title %}
+    {% endblock %}
+
+
+</head>
+<body>
+
+<header>
+    <div id="titre" class="center">
+        <a href="{{ path('feed') }}"><span>The Feed</span></a>
+        <nav>
+            <a href="{{ path('feed') }}">Accueil</a>
+        </nav>
+    </div>
+</header>
+
+<div id="flashes-container">
+    <!-- Pour chaque message du type "success" -->
+    {% for flashMsg in app.flashes('success') %}
+        <span class="flashes flashes-success">{{ flashMsg }}</span>
+    {% endfor %}
+
+    {% for flashMsg in app.flashes('error') %}
+        <span class="flashes flashes-error">{{ flashMsg }}</span>
+    {% endfor %}
+</div>
+
+
+{% block page_content %}
+
+{% endblock %}
+</body>
+</html>
