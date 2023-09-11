@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
@@ -17,6 +18,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Length(min: 4, max:20, minMessage: 'Il faut au moins 4 caractères!', maxMessage: 'Pas plus de 20 caractères!',)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
     private ?string $login = null;
 
     #[ORM\Column]
@@ -29,6 +33,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
+    
     private ?string $adresseEmail = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
