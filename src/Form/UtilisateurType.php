@@ -12,15 +12,37 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Validator\Constraints\Blank;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Regex;
+
 class UtilisateurType extends AbstractType
 {
+
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('login', TextType::class)
             ->add('adresseEmail', EmailType::class)
-            ->add('plainPassword', PasswordType::class)
-            ->add('fichierPhotoProfil', FileType::class)
+            ->add('plainPassword', PasswordType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new NotBlank(),
+                    new NotNull(),
+                    new Regex('#^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,30}$#', message: 'Le mot de passe n\'est pas valide'),
+                    new Length(min: 8, max: 20, minMessage: 'Le mot de passe doit être d\'au moins 8 caractères', maxMessage: 'Le mot de passe doit être d\'au plus 30 caractères')
+                ]
+            ])
+            ->add('fichierPhotoProfil', FileType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new File(maxSize : '10M', maxSizeMessage: 'La taille de l\'image n\'est pas valide', extensions : ['jpg', 'png'])
+                ]
+            ])
             ->add('inscription', SubmitType::class)
 
         ;

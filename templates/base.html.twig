@@ -15,6 +15,7 @@
         <a href="{{ path('feed') }}"><span>The Feed</span></a>
         <nav>
             <a href="{{ path('feed') }}">Accueil</a>
+            <a href="{{ path('inscription') }}">Inscription</a>
         </nav>
     </div>
 </header>
@@ -28,6 +29,7 @@
     {% for flashMsg in app.flashes('error') %}
         <span class="flashes flashes-error">{{ flashMsg }}</span>
     {% endfor %}
+
 </div>
 
 

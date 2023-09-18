@@ -38,6 +38,7 @@ class PublicationController extends AbstractController
             $this->addFlash('success', 'Feed envoyé!');
             $entityManager->persist($publication);
             $entityManager->flush();
+
             return $this->redirectToRoute('feed');
         }
         else{
