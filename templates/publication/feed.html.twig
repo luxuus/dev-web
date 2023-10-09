@@ -5,7 +5,6 @@
 {% block page_content %}
 <main id="the-feed-main">
     <div id="feed">
-
         <!-- Génération de la balise <form>, possédant un id (HTML) "feedy-new" -->
         {{ form_start(monFormulaire, {'attr': {'id': 'feedy-new'}}) }}
         <fieldset>
@@ -30,11 +29,11 @@
             <div class="feedy-header">
                 <a href="">
                     <img class="avatar"
-                         src= "{{ asset("img/utilisateurs/anonyme.jpg") }}"
+                         src= "{{  asset("img/utilisateurs/uploads/") ~ utilisateur.nomPhotoProfil }}"
                          alt="avatar de l'utilisateur">
                 </a>
                 <div class="feedy-info">
-                    <span>Anonyme</span>
+                    <span>{{ utilisateur.login }}</span>
                     <span> - </span>
                     <span><!-- Date de la publication sous le format jour/mois/annee -->{{ publication.getDatePublication()|date('d-m-Y') }}</span>
                     <p><!-- Message de la publication --> {{ publication.getMessage() }}</p>

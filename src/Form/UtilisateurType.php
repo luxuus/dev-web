@@ -26,15 +26,18 @@ class UtilisateurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('login', TextType::class)
+            ->add('login', TextType::class, [
+                'constraints' =>[
+                    new Length(min: 4, max:20, minMessage: 'Trop court mec !', maxMessage: 'Trop long mec !' )]
+                ])
             ->add('adresseEmail', EmailType::class)
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank(),
                     new NotNull(),
-                    new Regex('#^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,30}$#', message: 'Le mot de passe n\'est pas valide'),
-                    new Length(min: 8, max: 20, minMessage: 'Le mot de passe doit être d\'au moins 8 caractères', maxMessage: 'Le mot de passe doit être d\'au plus 30 caractères')
+                    new Regex('#^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,30}$#', message: 'Le mot de passe n\'est pas valide'),
+                    new Length(min: 8, max: 30, minMessage: 'Le mot de passe doit être d\'au moins 8 caractères', maxMessage: 'Le mot de passe doit être d\'au plus 30 caractères')
                 ]
             ])
             ->add('fichierPhotoProfil', FileType::class, [
