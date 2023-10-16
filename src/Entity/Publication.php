@@ -18,13 +18,14 @@ class Publication
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotNull]
     #[Assert\NotBlank]
-    #[Assert\Length(min: 4, max:200, minMessage: 'Il faut au moins 2 caractères!', maxMessage: 'Pas plus de 200 caractères!',)]
+    #[Assert\Length(min: 4, max:200, minMessage: 'Il faut au moins 2 caractères!', maxMessage: 'Pas plus de 200 caractères!', groups: ['publication:write.premium'])]
+    #[Assert\Length(min: 4, max:50, minMessage: 'Il faut au moins 2 caractères!', maxMessage: 'Pas plus de 50 caractères!', groups: ['publication:write.normal'])]
     private ?string $message = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $datePublication = null;
 
-    #[ORM\ManyToOne(inversedBy: 'publications', fetch: 'EAGER')]
+    #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'publications')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Utilisateur $auteur = null;
 

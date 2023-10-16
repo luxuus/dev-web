@@ -48,7 +48,11 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $nomPhotoProfil = null;
 
     #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Publication::class, orphanRemoval: true)]
+    #[ORM\OrderBy(["datePublication" => "DESC"])]
     private Collection $publications;
+
+    #[ORM\Column(options: ["default" => false])]
+    private ?bool $premium = false;
 
     public function __construct()
     {
@@ -175,6 +179,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
                 $publication->setAuteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isPremium(): ?bool
+    {
+        return $this->premium;
+    }
+
+    public function setPremium(bool $premium): static
+    {
+        $this->premium = $premium;
 
         return $this;
     }

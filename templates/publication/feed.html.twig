@@ -1,7 +1,13 @@
 {% extends "base.html.twig" %}
+
 {% block page_title %}
-    <title>The Feed</title>
+    The Feed
 {% endblock %}
+
+{% block script_tag%}
+    <script defer type="text/javascript" src="{{ asset('js/publications.js') }}"></script>
+{% endblock %}
+
 {% block page_content %}
 <main id="the-feed-main">
     <div id="feed">
@@ -25,21 +31,7 @@
 
         <!-- Pour chaque publication, afficher (avec une boucle) le code HTML ci-dessous !-->
         {% for publication in publications %}
-        <div class="feedy">
-            <div class="feedy-header">
-                <a href="">
-                    <img class="avatar"
-                         src= "{{  asset("img/utilisateurs/uploads/") ~ utilisateur.nomPhotoProfil }}"
-                         alt="avatar de l'utilisateur">
-                </a>
-                <div class="feedy-info">
-                    <span>{{ utilisateur.login }}</span>
-                    <span> - </span>
-                    <span><!-- Date de la publication sous le format jour/mois/annee -->{{ publication.getDatePublication()|date('d-m-Y') }}</span>
-                    <p><!-- Message de la publication --> {{ publication.getMessage() }}</p>
-                </div>
-            </div>
-        </div>
+         {{ include ('/publication/publication.html.twig') }}
         <!-- Fin de la boucle -->
         {% endfor %}
     </div>

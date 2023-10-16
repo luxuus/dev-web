@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     dossier_photo_profil: '%kernel.project_dir%/public/img/utilisateurs/uploads'
+    premium_price: 100
+    secret_key: '%env(string:SECRET_KEY)%'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -26,6 +28,9 @@ services:
 
     App\Service\UtilisateurManager: ~
     App\Service\UtilisateurManagerInterface: '@App\Service\UtilisateurManager'
+
+    App\Service\PaymentHandler: ~
+    App\Service\PaymentHandlerInterface: '@App\Service\PaymentHandler'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

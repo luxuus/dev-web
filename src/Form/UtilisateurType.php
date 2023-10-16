@@ -18,13 +18,13 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Regex;
-
 class UtilisateurType extends AbstractType
 {
 
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
             ->add('login', TextType::class, [
                 'constraints' =>[
@@ -53,6 +53,7 @@ class UtilisateurType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        $group = $
         $resolver->setDefaults([
             'data_class' => Utilisateur::class,
         ]);

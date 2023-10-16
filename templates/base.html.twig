@@ -2,9 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    {% block page_title %}
+    <link rel="stylesheet" type="text/css" href={{ asset("css/styles.css")}}>
+    {% block script_tag%}
     {% endblock %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <title> {% block page_title %}
+    {% endblock %}</title>
 
 
 </head>
@@ -20,6 +24,13 @@
                 <a href="{{ path('login') }}">Connexion</a>
             {% endif %}
             {% if is_granted('ROLE_USER') %}
+
+                {% if  not app.user.premium %}
+                    <a href="{{path('premiumInfos')}}">Premium</a>
+                {% endif %}
+
+
+                <a href="{{ path('pagePerso', {'login': app.user.login}) }}">Ma page</a>
             <form method="post" action="{{ path('logout') }}">
                 <button id="btn-deconnexion">Déconnexion</button>
             </form>
